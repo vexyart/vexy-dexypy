@@ -10,7 +10,22 @@ description = "Turn an HTML page into slide decks (PDF/SVG) through several engi
 readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
-authors = [{ name = "Adam Twardoch" }]
+authors = [{ name = "Adam Twardoch", email = "adam+github@twardoch.com" }]
+keywords = ["slides", "pdf", "html", "presentation", "playwright", "reveal.js", "webflow"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Graphics :: Presentation",
+    "Topic :: Text Processing :: Markup :: HTML",
+]
 dependencies = [
     "httpx[http2]>=0.27",
     "beautifulsoup4>=4.12",
@@ -35,6 +50,13 @@ all = [
     "trafilatura>=1.12",
     "pikepdf>=9.4",
 ]
+
+[project.urls]
+Documentation = "https://vexy.dev/vexy-dexypy/"
+Homepage = "https://github.com/vexyart/vexy-dexypy"
+Repository = "https://github.com/vexyart/vexy-dexypy"
+Issues = "https://github.com/vexyart/vexy-dexypy/issues"
+Changelog = "https://github.com/vexyart/vexy-dexypy/blob/main/CHANGELOG.md"
 
 [project.scripts]
 vexy-dexypy = "vexy_dexypy.__main__:main"
@@ -74,6 +96,17 @@ version-file = "src/vexy_dexypy/__version__.py"
 [tool.hatch.build.targets.wheel]
 packages = ["src/vexy_dexypy"]
 artifacts = ["src/vexy_dexypy/assets/**"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src/vexy_dexypy",
+    "tests",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "pyproject.toml",
+]
+exclude = ["**/.DS_Store", "**/ruvector.db", "tests/**/.DS_Store"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -55,6 +55,8 @@ jobs:
       - name: Publish to PyPI
         # Trusted publishing — configure the publisher in the PyPI project settings.
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
 
   github-release:
     needs: build

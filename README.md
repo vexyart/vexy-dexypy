@@ -5,6 +5,8 @@
 **Turn any web page into slide decks — several at once — and keep the slides you
 like.**
 
+**Documentation:** https://vexy.dev/vexy-dexypy/
+
 ![One URL fanning out into five presses, each printing its own stack of slides](docs/assets/icon.png)
 
 vexy-dexypy takes one URL, figures out where the slides hiding inside the page
