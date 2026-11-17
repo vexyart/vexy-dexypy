@@ -192,3 +192,9 @@ The full six-stage pipeline, implemented and tested end-to-end.
 
 - Webflow logic copied & adapted from the author's legacy `webflow2reveal`
   (now first-class vexy-dexypy code; the package is slated for removal).
+
+## 2026-10-18: documentation plugins
+
+- Use MaterialX search, inherited metadata and a topic index; keep ordered navigation in awesome-nav.
+- The documentation wrapper installs the plugins required by this site.
+- Strict documentation build and rendered output checks passed.

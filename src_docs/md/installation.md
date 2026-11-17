@@ -1,3 +1,8 @@
+---
+this_file: src_docs/md/installation.md
+tags: [Installation]
+---
+
 # Installation
 
 `vexy-dexypy` is a Python package with a command-line tool. The core install

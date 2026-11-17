@@ -1,3 +1,8 @@
+---
+this_file: src_docs/md/cli.md
+tags: [Command line]
+---
+
 # Command line
 
 The `vexy-dexypy` command is built with Python Fire. It has five commands. You

@@ -247,3 +247,9 @@ Reported: TransType slides showed white bg + margins + only the footer survived.
 - 67 tests pass; ruff clean. Live builds of the TransType page render the real red
   hero (slide 1) and green quote (slide 5) at 1280×720 — true colours, no white bg,
   no margins, desktop layout.
+
+## 2026-10-18: documentation plugins
+
+- Use MaterialX search, inherited metadata and a topic index; keep ordered navigation in awesome-nav.
+- The documentation wrapper installs the plugins required by this site.
+- Strict documentation build and rendered output checks passed.
