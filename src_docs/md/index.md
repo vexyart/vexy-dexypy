@@ -1,4 +1,4 @@
-# vexy-dexypy
+# vexy-dexypy {data-toc-label="Dexypy"}
 
 `vexy-dexypy` turns a web page into slide decks. It takes one URL or local HTML
 file, works out where the slides inside the page should break, and renders the

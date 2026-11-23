@@ -97,7 +97,7 @@ Engine PDFs are cached in `out/<slug>/_meta/cache/` by content hash, strategy
 and stage size. Pass `--no_cache` to render again, or delete the `out/<slug>/`
 folder.
 
-## `svg requested but vexy-pdfsvgpy unavailable`
+## `svg requested but vexy-pdfsvgpy unavailable` {data-toc-label="SVG exporter unavailable"}
 
 `--svg` needs the `vexy-pdfsvgpy` package in the same environment. Without it,
 you still get the PDFs and the preview.

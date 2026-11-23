@@ -253,3 +253,28 @@ Reported: TransType slides showed white bg + margins + only the footer survived.
 - Use MaterialX search, inherited metadata and a topic index; keep ordered navigation in awesome-nav.
 - The documentation wrapper installs the plugins required by this site.
 - Strict documentation build and rendered output checks passed.
+
+## 2026-11-24 — fly-january 0.1.1
+
+- The root docs build and the Docs workflow both use `src_docs/mkdocs.yml`.
+  Rebuilt `docs/` with `chrome: none`. The native header uses “Dexypy” and
+  “GitHub”. Two table-of-contents labels keep package names in the article text.
+- `./build.sh docs` exited 0 with zero warnings. All 12 HTML pages load the
+  theme assets and use the MaterialX favicon. Search contains 89 records and
+  the topic index lists five groups. No `fltheme26` references remain in
+  `src_docs/`.
+- With browser startup blocked, pytest reported 61 passed, one failed and five
+  deselected (exit 1). The Bubble importer fallback drops the styled wrapper
+  that `test_bubble_relaxes_absolute_positioning` expects. The same assertion
+  failed against the unmodified branch source. The five deselected tests and
+  the `test.sh` example smoke require a browser.
+
+Local verification commands, run from the worktree root:
+
+```bash
+mkdir -p .cache/tmp
+export TMPDIR="$PWD/.cache/tmp" UV_CACHE_DIR="$PWD/.cache/uv"
+export UV_TOOL_DIR="$PWD/.cache/tools" XDG_CACHE_HOME="$PWD/.cache" UV_PYTHON_DOWNLOADS=never
+./build.sh docs
+uv run --frozen --extra all python -c 'import pytest,sys; from unittest.mock import patch; patch("playwright.sync_api.sync_playwright", side_effect=RuntimeError("browser disabled")).start(); sys.exit(pytest.main(sys.argv[1:]))' -q -k 'not (test_build_generic_fixture_produces_slides or test_build_mkdocs_fixture_classified_and_rendered or test_cache_hit_on_second_build or test_render_verb_reuses_sidecars or test_live_read_keeps_assets_online)'
+```

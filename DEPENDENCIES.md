@@ -20,6 +20,11 @@ out because vexy-dexypy ships under MIT and must not link AGPL/GPL code (spec/24
   PDF export. Needs `playwright install chromium`. When absent, `live` degrades to
   `localize` (httpx) so the package still functions.
 
+## Documentation build
+
+- **fly-january 0.1.1** (Apache-2.0) supplies the documentation theme.
+  `src_docs/build.sh` installs it in the isolated ProperDocs environment.
+
 ## Optional extras
 
 - **trafilatura** (`extract`, Apache-2.0) — content extraction for the generic

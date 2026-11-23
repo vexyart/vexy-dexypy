@@ -66,8 +66,8 @@ The root `build.sh` builds both:
 ```
 
 The documentation source is Markdown in `src_docs/md/`. `src_docs/build.sh`
-builds it into `docs/` with ProperDocs and the MaterialX theme in strict mode,
-and `src_docs/build.sh serve` starts a live preview at
+builds it into `docs/` in strict mode with ProperDocs and fly-january 0.1.1
+(`chrome: none`). Run `src_docs/build.sh serve` for a live preview at
 `http://127.0.0.1:8000`. GitHub Pages serves `docs/` at
 <https://vexy.dev/vexy-dexypy/>. The `Docs` workflow rebuilds `docs/` when
 `src_docs/` changes on `main`.
