@@ -4,6 +4,8 @@
 
 ## Unreleased
 
+- The documentation site now uses fly-january 0.3.0 or later.
+
 ### Added
 
 - **Continuous integration.** `.github/workflows/ci.yml` runs the offline test

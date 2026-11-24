@@ -143,7 +143,7 @@ vexy-dexyjs/    # the browser preprocessor javascript package
 ## Contributing
 
 Run `./build.sh docs` to build the documentation in strict mode. ProperDocs
-uses `src_docs/mkdocs.yml` and fly-january 0.2.1 with `chrome: none`.
+uses `src_docs/mkdocs.yml` and fly-january 0.3.0 or later with `chrome: none`.
 GitHub Pages serves the generated files in `docs/`.
 
 Read [`spec/00-tldr.md`](spec/00-tldr.md) and [`CLAUDE.md`](CLAUDE.md) first. The
