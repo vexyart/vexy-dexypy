@@ -877,18 +877,15 @@ builds it into <code>docs/</code> in strict mode with ProperDocs and fly-january
 <p>The version comes from git tags through <code>hatch-vcs</code>. At build time it is written
 to <code>src/vexy_dexypy/__version__.py</code>, which git ignores, and
 <code>vexy_dexypy.__version__</code> reads it.</p>
-<p><code>./publish.sh</code> makes a release:</p>
-<ol>
-<li><code>uvx gitnextver</code> commits pending changes, tags the next <code>vX.Y.Z</code> and pushes.</li>
-<li>The script checks that <code>HEAD</code> carries a <code>vX.Y.Z</code> tag.</li>
-<li><code>./build.sh package</code> builds and checks the distributions.</li>
-<li><code>uv publish</code> uploads them to PyPI. It needs <code>UV_PUBLISH_TOKEN</code> or another
-   <code>uv publish</code> credential.</li>
-</ol>
-<p>Pushing the tag also starts <code>.github/workflows/release.yml</code>, which builds the
-distributions, publishes them to PyPI with trusted publishing (skipping files
-that already exist), and creates a GitHub release with the matching
-<code>CHANGELOG.md</code> section.</p>
+<p>Use <code>./build.sh package</code> to check the wheel and source distribution locally.
+Once the release commit is on the remote default branch, run <code>./publish.sh</code>
+for the next patch release, or pass an explicit tag such as
+<code>./publish.sh v1.4.0</code>. The script dispatches <code>.github/workflows/release.yml</code>
+from that branch. Pushing a <code>vX.Y.Z</code> tag also starts the workflow.</p>
+<p>GitHub Actions builds from the tag, attaches the distributions to a GitHub
+release, and uploads them through PyPI Trusted Publishing (OIDC).
+In the PyPI project's Publishing settings, the owner must register
+<code>vexyart/vexy-dexypy</code>, workflow <code>release.yml</code>, and environment <code>pypi</code>.</p>
 <h2 id="conventions">Conventions<a aria-label="Permanent link" class="headerlink" href="#conventions" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Python 3.12+, <code>uv</code> for every dependency change.</li>

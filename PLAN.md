@@ -1,86 +1,36 @@
 <!-- this_file: PLAN.md -->
 
-# PLAN — issue 103: browser-native pipeline + `vexy-dexyjs` npm package
+# PLAN — remaining work
 
-This plan decomposes [`issues/103.md`](issues/103.md). Several items it asks for
-are **already done**; this plan tracks only the genuine deltas.
+## Offline capture and the companion bundle
 
-## Already in place (verified 2026-05-23)
+- **SingleFile and monolith.** The Python reader has tests for command
+  construction and fallback. Run each installed archiver against a served
+  fixture with CSS and an image. Stop the fixture server and verify that the
+  archived page still has both assets.
+- **JS-side critical CSS.** For the optional browser-side path in
+  [issue 103](issues/103.md), check that critical styles and rewritten asset
+  references still render after disconnecting from the source.
+- **Published `vexy-dexyjs` pin.** Compare the pinned published bundle with the
+  vendored `build:py` output. Verify the same transform and offline startup
+  before switching the Python consumer.
 
-- Package renamed `vexy-dex` → `vexy-dexypy`; `hatch-vcs` git-tag semver
-  (`pyproject.toml`).
-- Browser-engine choice — `playwright` / `playwrightauthor` / `cloakbrowser` —
-  implemented in `_browser.py:launched_browser` and `--browser-engine`.
-- Preprocessing already runs **in the browser**: `_browser.run_js_preprocessor`
-  injects `assets/vexy-dexyjs.js` and calls `window.VexyDexy.preprocess(config)`.
+## Browser and exporter checks
 
-## The real deltas
+- **Warm browser/context reuse.** Compare launch counts and slide output on
+  the same fixture before and after sharing the browser between pagination
+  and Playwright export. Check cleanup after a failed export.
+- **Chassis divergence.** `test_chassis_divergence_guarantee` verifies four
+  prepared inputs. Export the same fixture through at least two chassis and
+  inspect the decks for preserved content and distinct layouts.
 
-The pipeline today still **downloads HTML + localizes every asset to disk**
-(`readers/localize.py`, served over loopback in `_browser.serving`). Issue 103
-wants the prep done against the **live** page in the browser — fonts/assets stay
-in the browser, not saved — and `vexy-dexyjs` promoted to a standalone,
-CDN-published npm package usable by external tools and a Chrome extension.
+## Optional capture paths from issue 104
 
-### Phase 1 — `vexy-dexyjs` as a real npm package  ✅ DONE (verified)
-
-Goal: a published, CDN-loadable, generalized successor to `webflow2revealjs`.
-
-- [x] Rework `vexy-dexyjs/package.json`: `main`/`module`/`browser`/`unpkg`/
-      `jsdelivr`/`exports`/`types`, `files`, keywords, author, license, repo.
-- [x] Multi-format build (esbuild): `dist/index.mjs` (esm), `dist/index.cjs`,
-      `dist/vexy-dexyjs.global.js` (IIFE, global `VexyDexy`) + minified `.min`.
-- [x] Keep the Python-asset build target (`build:py`) so consumers stay in sync.
-- [x] Hand-maintained `index.d.ts` (small, stable public surface).
-- [x] `README.md`: API, CDN snippet, framework support, consumers.
-- [x] `publish.sh` — git-tag semver → npm (builds dist via `prepublishOnly`).
-- [x] DOM-free smoke test (`npm test`).
-
-Verified: `npm run build` emitted all formats; `npm test` passed; Python asset
-rebuilt byte-identical.
-
-### Phase 2 — browser-native ("live") mode in `vexy-dexypy`  ✅ DONE (verified)
-
-- [x] `Settings.fetch_mode`: `live` (default) | `localize`; `--fetch-mode` flag.
-- [x] `LiveReader`: navigate the real URL, inject `<base href>`, no localization;
-      downstream stages serve it and load assets online.
-- [x] Reader dispatch routes `live` (mode-dispatched, not confidence-ranked);
-      graceful fallback to `localize` without playwright.
-- [x] Partial-failure isolation / DeckResult contract unchanged.
-- [x] Updated `spec/06`/`spec/07`; offline guarantee scoped to `localize`.
-
-Verified: 61 tests pass (6 new in `test_live.py`); manual `live` build of a served
-fixture → 4 slide PDFs with zero localized asset dirs.
-
-### Phase 3 — offlinization as an opt-in capability  ✅ DONE (verified)
-
-Self-containment (SingleFile / monolith) exposed as the opt-in `offline` fetch
-mode — a portable single-file artifact, off the default hot path.
-
-- [x] `OfflineReader` shells out to `single-file`/`monolith` (`offline_tool`);
-      `--fetch-mode offline`; graceful fallback to `localize` when absent.
-- [ ] Future: in-browser `vexy-dexyjs` critical-CSS inline / asset-ref rewrite
-      (the JS-side variant; the Python shell-out covers the primary need).
-
-Verified: `tests/test_offline.py` (6 tests) — command construction, settings
-plumbing, `can_read == 0`, tool-absent fallback, file→static delegation.
-
-### Phase 4 — Chrome extension scaffold  ✅ DONE (verified)
-
-- [x] `vexy-dexyjs/extension/` MV3 scaffold (manifest + popup) loads the IIFE
-      bundle and runs `preprocess` on the active tab; `build:ext` emits the bundle.
-
-Verified: `npm run build` emits `extension/vexy-dexyjs.global.min.js`; smoke green.
-
-### Phase 5 — `vexy-dexypy` consumes published `vexy-dexyjs`  ◑ PARTIAL
-
-- [x] Documented the vendored `assets/vexy-dexyjs.js` sync (regenerated by the
-      `vexy-dexyjs` repo's `build:py`) in `DEPENDENCIES.md`.
-- [ ] Optional/future: pin a published CDN version instead of vendoring.
-
-## Sequencing rationale
-
-Phase 1 is self-contained, reversible, and unblocks everything else (Phases 2/4/5
-all consume the package). It carries no risk to the green Python MVP, so it goes
-first. Phase 2 is the deep change and is gated behind a mode flag so the working
-`localize` path is never broken.
+- **DOM→SVG.** Export a styled slide as a standalone SVG, render its PDF from
+  the same SVG, and compare geometry and background transparency.
+- **macOS native PDF.** Compare `WKWebView.createPDF` output with the existing
+  screen capture on a fixture with backgrounds and viewport-sized content.
+- **Single-page capture.** Check that a tall fixture fits one page at its
+  measured scroll width and height without clipping.
+- **Transparent PDF backgrounds.** Check whether `qpdf` or `mutool` can remove
+  a known opaque background while retaining text and foreground graphics.

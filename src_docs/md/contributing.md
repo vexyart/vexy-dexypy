@@ -78,18 +78,16 @@ The version comes from git tags through `hatch-vcs`. At build time it is written
 to `src/vexy_dexypy/__version__.py`, which git ignores, and
 `vexy_dexypy.__version__` reads it.
 
-`./publish.sh` makes a release:
+Use `./build.sh package` to check the wheel and source distribution locally.
+Once the release commit is on the remote default branch, run `./publish.sh`
+for the next patch release, or pass an explicit tag such as
+`./publish.sh v1.4.0`. The script dispatches `.github/workflows/release.yml`
+from that branch. Pushing a `vX.Y.Z` tag also starts the workflow.
 
-1. `uvx gitnextver` commits pending changes, tags the next `vX.Y.Z` and pushes.
-2. The script checks that `HEAD` carries a `vX.Y.Z` tag.
-3. `./build.sh package` builds and checks the distributions.
-4. `uv publish` uploads them to PyPI. It needs `UV_PUBLISH_TOKEN` or another
-   `uv publish` credential.
-
-Pushing the tag also starts `.github/workflows/release.yml`, which builds the
-distributions, publishes them to PyPI with trusted publishing (skipping files
-that already exist), and creates a GitHub release with the matching
-`CHANGELOG.md` section.
+GitHub Actions builds from the tag, attaches the distributions to a GitHub
+release, and uploads them through PyPI Trusted Publishing (OIDC).
+In the PyPI project's Publishing settings, the owner must register
+`vexyart/vexy-dexypy`, workflow `release.yml`, and environment `pypi`.
 
 ## Conventions
 

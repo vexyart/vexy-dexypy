@@ -9,16 +9,21 @@
 - **Continuous integration.** `.github/workflows/ci.yml` runs the offline test
   suite on Ubuntu, macOS and Windows across Python 3.12 and 3.13, plus a lint job
   (`ruff check`, `ruff format --check`, `mypy`). All jobs use `uv`.
-- **Release automation.** `.github/workflows/release.yml` builds the sdist/wheel
-  on every `v*` tag, publishes to PyPI via trusted publishing, and cuts a GitHub
-  release with the matching changelog section attached.
+- **Release automation.** `release.yml` builds from a release tag, attaches the distributions to a GitHub release, and publishes to PyPI using OIDC (`aa1bdc5`). The PyPI project owner must configure or confirm a Trusted Publisher for `vexyart/vexy-dexypy`, workflow `release.yml`, environment `pypi`.
 - **Documentation site.** `docs/` now carries a Jekyll + Just the Docs page
   (`docs/index.md`, `docs/_config.yml`) for GitHub Pages, with a hand-drawn
   project icon at `docs/assets/icon.png`.
+- Verified distinct reveal, paged, impress and Marp inputs from the same slide IR with `test_chassis_divergence_guarantee` (`79f25ea`).
+- Verified SingleFile and monolith command construction, settings and fallback in the Python offline reader with `tests/test_offline.py` (`7e9c04e`).
+- Verified live capture on the MkDocs blog and representative Vexy and FontLab pages (`20f6a0c`, `1b2b638`, `d7da061`). Captured manifests are under `examples/expected/`.
+- Added concurrent render fan-out, content-addressed caching and sidecar replay (`245aa42`, `tests/test_orchestrator.py`).
+- Verified recursive CSS import and URL localization with `tests/test_localize.py` (`b081530`).
+- Added runtime strategy listing in CLI help and a golden pagination check (`5f7809a`, `test_plan_breaks_golden`).
+- Verified the vendored `vexy-dexyjs` asset rebuilt byte-identically with `build:py` during issue 103 acceptance.
 
 ### Changed
 
-- Site now uses the fly-january 0.2.1 theme (chrome: none).
+- Site now uses the fly-january 0.2.1 theme (chrome: none), built with ProperDocs for GitHub Pages (`5add9bc`, `5feafad`).
 - **`mypy` is now clean.** Added a pragmatic `[tool.mypy]` config and resolved the
   BeautifulSoup `Tag`/`PageElement` typing friction in `dom.py`, `preexport.py`
   and the importers with `isinstance` guards (no runtime change).
@@ -123,8 +128,8 @@ so the five strategies diverged only by PDF engine, not by framework. Revised
 the spec to make the **chassis** (reveal / paged / impress / marp) a per-strategy
 stage-4 choice over a framework-neutral `<section class="slide">` IR, so genuine
 alternatives to reveal are possible. Updated spec/03, spec/11, spec/15, spec/16,
-spec/19 and added the refactor + `impress`/`marp` tasks to TODO.md. Code refactor
-is tracked, not yet implemented.
+spec/19 and added the refactor + `impress`/`marp` tasks to TODO.md.
+The implementation followed in `79f25ea`.
 
 ### Fixed
 
