@@ -2,6 +2,8 @@
 
 # WORK — progress log
 
+The docs build currently uses fly-january 0.2.1.
+
 ## 2026-05-22 — MVP walking skeleton + CMS-aware pipeline
 
 Implemented the full pipeline end-to-end. `vexy-dex build <local.html>

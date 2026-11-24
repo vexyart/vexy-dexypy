@@ -22,7 +22,7 @@ out because vexy-dexypy ships under MIT and must not link AGPL/GPL code (spec/24
 
 ## Documentation build
 
-- **fly-january 0.1.1** (Apache-2.0) supplies the documentation theme.
+- **fly-january 0.2.1** (Apache-2.0) supplies the documentation theme.
   `src_docs/build.sh` installs it in the isolated ProperDocs environment.
 
 ## Optional extras

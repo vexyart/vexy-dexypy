@@ -147,7 +147,7 @@ becomes possible ([spec/11](spec/11.md), [spec/15](spec/15.md), [spec/16](spec/1
 - [x] CI: `.github/workflows/ci.yml` — offline tests on Ubuntu/macOS/Windows × Py3.12/3.13 + ruff/mypy lint
 - [x] Release: `.github/workflows/release.yml` — tag → build → PyPI trusted publish + GitHub release
 - [x] `mypy` clean (`[tool.mypy]` config + bs4 `Tag` narrowing); `ruff format` applied tree-wide
-- [x] Build the GitHub Pages site in `docs/` from `src_docs/mkdocs.yml` with ProperDocs and fly-january 0.1.1 (`chrome: none`).
+- [x] Build the GitHub Pages site in `docs/` from `src_docs/mkdocs.yml` with ProperDocs and fly-january 0.2.1 (`chrome: none`).
 
 ## Issue 103 — browser-native pipeline + `vexy-dexyjs` npm package
 
