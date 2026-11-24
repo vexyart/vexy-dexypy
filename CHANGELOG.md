@@ -4,6 +4,7 @@
 
 ## Unreleased
 
+- The documentation site now uses fly-january 0.4.0 or later (remote theme assets).
 - The documentation site now uses fly-january 0.3.0 or later.
 
 ### Added
